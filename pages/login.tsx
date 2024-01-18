@@ -31,7 +31,7 @@ const LoginPage = () => {
 
 	return (
 		<main className="login">
-            <h1 className="login__title text-center text-4xl font-bold">
+            <h1 className="text-center text-4xl font-bold">
                 Login
             </h1>
 			<form onSubmit={handleSubmit}>
