@@ -7,5 +7,7 @@ export const USER_ROLES = {
 export const RESPONSE_MESSAGES = {
 	SUCCESS: "Success",
 	FAILED: "Failed",
-	SERVER_ERROR: "Internal Server Error",
+	BAD_REQUEST: "Bad Request",
+	NOT_FOUND: "Not Found",
+	INTERNAL_SERVER_ERROR: "Internal Server Error",
 };
