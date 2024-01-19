@@ -1,6 +1,6 @@
 import { RESPONSE_MESSAGES } from "@/constants/enum";
 import connectDB from "@/db";
-import { login } from "@/controllers/auth";
+import { register } from "@/controllers/auth";
 import { ApiRequest, ApiResponse } from "@/types/api";
 
 const handler = async (req: ApiRequest, res: ApiResponse) => {
@@ -9,7 +9,7 @@ const handler = async (req: ApiRequest, res: ApiResponse) => {
 		const { method } = req;
 		switch (method) {
 			case "POST":
-				return login(req, res);
+				return register(req, res);
 			default:
 				res.setHeader("Allow", ["POST"]);
 				return res.status(405).end(`Method ${method} Not Allowed`);
