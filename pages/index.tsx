@@ -1,6 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import { Button } from "@/library";
+import http from "@/utils/http";
 
 const Home: React.FC = () => {
 	const router = useRouter();
@@ -21,3 +22,36 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+export const getServerSideProps = async (context: any) => {
+	const { req } = context;
+	const cookies = req.cookies;
+	console.log("cookies in _app", cookies);
+	/* if (!cookies.token) {
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	} */
+	try {
+		const res = await http.get("/auth/verify", {
+			headers: {
+				cookie: req.headers.cookie,
+			},
+		});
+		console.log("res in _app", res.data);
+		return {
+			props: {},
+		};
+	} catch (error: any) {
+		console.error(error.message);
+		return {
+			redirect: {
+				destination: "/login",
+				permanent: false,
+			},
+		};
+	}
+};

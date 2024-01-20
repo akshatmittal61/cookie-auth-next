@@ -6,7 +6,7 @@ import { jwtSecret } from "@/config";
 
 export const verify = async (req: ApiRequest, res: ApiResponse) => {
 	try {
-		console.log(req.cookies, req.headers.cookie);
+		console.log(req.cookies);
 		const token = req.cookies.token;
 		console.log(token);
 		if (!token) {
@@ -87,14 +87,17 @@ export const login = async (req: ApiRequest, res: ApiResponse) => {
 		const token = jwt.sign({ id: foundUser._id }, jwtSecret, {
 			expiresIn: "30d",
         });
-		console.log(token, res);
-		return res
-			.cookie("token", token, {
+		/* .cookie("token", token, {
 				httpOnly: true,
 				maxAge: 30 * 24 * 60 * 60 * 1000,
 				sameSite: "none",
 				secure: true,
-			})
+			}) */
+		res.setHeader(
+			"Set-Cookie",
+			`token=${token}; HttpOnly; Path=/; Max-Age=${30 * 24 * 60 * 60 * 1000}; SameSite=None; Secure=true`
+		);
+		return res
 			.status(200)
 			.json({ message: RESPONSE_MESSAGES.SUCCESS, data: foundUser });
 	} catch (error: any) {
