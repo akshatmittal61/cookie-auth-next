@@ -23,7 +23,7 @@ const Home: React.FC = () => {
 
 export default Home;
 
-export const getServerSideProps = async (context: any) => {
+/* export const getServerSideProps = async (context: any) => {
 	const { req } = context;
 	const cookies = req.cookies;
 	console.log("cookies in _app", cookies);
@@ -34,7 +34,7 @@ export const getServerSideProps = async (context: any) => {
 				permanent: false,
 			},
 		};
-	} */
+	} *
 	try {
 		const res = await http.get("/auth/verify", {
 			headers: {
@@ -54,4 +54,4 @@ export const getServerSideProps = async (context: any) => {
 			},
 		};
 	}
-};
+}; */

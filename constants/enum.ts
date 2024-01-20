@@ -9,5 +9,6 @@ export const RESPONSE_MESSAGES = {
 	FAILED: "Failed",
 	BAD_REQUEST: "Bad Request",
 	NOT_FOUND: "Not Found",
+	UNAUTHORIZED: "Unauthorized",
 	INTERNAL_SERVER_ERROR: "Internal Server Error",
 };

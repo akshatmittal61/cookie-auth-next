@@ -3,6 +3,7 @@ import { RESPONSE_MESSAGES } from "@/constants/enum";
 import User from "@/models/User";
 import jwt from "jsonwebtoken";
 import { jwtSecret } from "@/config";
+import * as authServices from '@/services/auth'
 
 export const verify = async (req: ApiRequest, res: ApiResponse) => {
 	try {
@@ -14,7 +15,7 @@ export const verify = async (req: ApiRequest, res: ApiResponse) => {
 				.status(401)
 				.json({ message: RESPONSE_MESSAGES.BAD_REQUEST });
 		}
-		const decoded: any = jwt.verify(token, jwtSecret);
+		/* const decoded: any = jwt.verify(token, jwtSecret);
 		console.log(decoded);
 		const foundUser = await User.findById(decoded.id);
 		console.log(foundUser);
@@ -25,7 +26,16 @@ export const verify = async (req: ApiRequest, res: ApiResponse) => {
 		}
 		return res
 			.status(200)
-			.json({ message: RESPONSE_MESSAGES.SUCCESS, data: foundUser });
+			.json({ message: RESPONSE_MESSAGES.SUCCESS, data: foundUser }); */
+		const user = await authServices.authenticate(token);
+		if (!user) {
+			return res
+				.status(401)
+				.json({ message: RESPONSE_MESSAGES.UNAUTHORIZED });
+		}
+		return res
+			.status(200)
+			.json({ message: RESPONSE_MESSAGES.SUCCESS, data: user });
 	} catch (error) {
 		console.error(error);
 		return res
