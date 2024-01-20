@@ -118,3 +118,26 @@ export const login = async (req: ApiRequest, res: ApiResponse) => {
 		});
 	}
 };
+
+export const logout = async (req: ApiRequest, res: ApiResponse) => {
+	try {
+		const token = req.cookies.token;
+		if (!token) {
+			return res
+				.status(401)
+				.json({ message: RESPONSE_MESSAGES.BAD_REQUEST });
+		}
+		res.setHeader(
+			'Set-Cookie',
+			'token=; HttpOnly; Path=/; Max-Age=0; SameSite=None; Secure=true'
+		);
+		return res
+			.status(200)
+			.json({ message: RESPONSE_MESSAGES.SUCCESS });
+	} catch (error) {
+		console.error(error);
+		return res
+			.status(500)
+			.json({ message: RESPONSE_MESSAGES.INTERNAL_SERVER_ERROR });
+	}
+}

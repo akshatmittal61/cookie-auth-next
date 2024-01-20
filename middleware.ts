@@ -16,7 +16,7 @@ const middleware = async (request: NextRequest) => {
 			return NextResponse.redirect(new URL("/login", request.nextUrl));
 	} else {
 		if (request.nextUrl.pathname === "/login")
-			return NextResponse.redirect(new URL("/", request.nextUrl));
+			return NextResponse.redirect(new URL("/dashboard", request.nextUrl));
 	}
 	return NextResponse.next();
 };

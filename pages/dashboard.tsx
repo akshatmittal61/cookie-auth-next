@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Button, Input } from "@/library";
+import { Button } from "@/library";
 import http from "@/utils/http";
+import { useRouter } from "next/router";
 
 const Dashboard = () => {
+	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e: any) => {
@@ -11,6 +13,7 @@ const Dashboard = () => {
 			setLoading(true);
 			const res = await http.post("/auth/logout");
 			console.log(res.data);
+			router.push("/login");
 		} catch (error) {
 			console.log(error);
 		} finally {

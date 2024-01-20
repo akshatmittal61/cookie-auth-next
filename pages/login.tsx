@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import {Button, Input} from "@/library";
 import http from "@/utils/http";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
+	const router = useRouter();
 	const [loading, setLoading] = useState(false);
 	const [creds, setCreds] = useState({
 		email: "",
@@ -22,6 +24,7 @@ const LoginPage = () => {
 			setLoading(true);
 			const res = await http.post("/auth/login", creds);
 			console.log(res.data);
+			router.push("/dashboard");
 		} catch (error) {
 			console.log(error);
 		} finally {
